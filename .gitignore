@@ -3,6 +3,9 @@ inaturalist_12K/
 
 # Ignore Python cache files
 __pycache__/
+PartA/__pycache__/
+PartA/wandb/
+PartB/__pycache__/
 *.pyc
 
 # Ignore Jupyter Notebook checkpoints
