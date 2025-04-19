@@ -19,8 +19,6 @@ This repository contains the implementation of an image classification framework
   - [Jupyter Notebook](#jupyter-notebook)
 - [Hyperparameter Optimization](#hyperparameter-optimization)
 - [Results](#results)
-- [Acknowledgements](#acknowledgements)
-
 ---
 
 ## Project Overview
