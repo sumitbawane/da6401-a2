@@ -3,7 +3,6 @@
 This repository contains the implementation of an image classification framework for the iNaturalist dataset. The project is divided into two main parts:
 1. **Part A:** Training a custom convolutional neural network (CNN) with hyperparameter optimization using Weight & Biases (W&B).
 2. **Part B:** Fine-tuning a pre-trained EfficientNetV2 model.
-3. **Jupyter Notebook:** A comprehensive notebook demonstrating model training, validation, and testing.
 
 ---
 
