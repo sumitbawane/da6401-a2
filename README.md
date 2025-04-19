@@ -186,15 +186,3 @@ sweep_config = {
 ### Part B
 - **Fine-tuned EfficientNetV2:** Achieved significant improvement in classification accuracy compared to the base CNN.
 
-### Jupyter Notebook
-- **Best Configuration:** Automatically applied from W&B sweeps.
-- **Test Accuracy:** Achieved 42.87% on the validation set and 43.20% on the test set.
-
----
-
-## Acknowledgements
-
-- The iNaturalist dataset is used for this project. Learn more about it from the [official website](https://www.inaturalist.org/).
-- The project integrates [PyTorch](https://pytorch.org/) and [Weights & Biases](https://wandb.ai/) for deep learning and experiment tracking.
-
-Feel free to raise issues or contribute to this project!
