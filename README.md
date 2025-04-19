@@ -29,7 +29,6 @@ This project is designed to classify images from the iNaturalist dataset. It lev
 
 - **Part A:** Implements a custom CNN architecture with configurable hyperparameters (e.g., kernel size, activation functions, dropout rates) and performs hyperparameter optimization using W&B sweeps.
 - **Part B:** Fine-tunes a pre-trained EfficientNetV2 model to adapt it to the iNaturalist dataset.
-- **Jupyter Notebook:** Provides an interactive environment to train and test models, showcasing configurations, metrics logging, and visualization of results.
 
 ---
 
@@ -41,7 +40,6 @@ This project is designed to classify images from the iNaturalist dataset. It lev
 - Mixed precision training for computational efficiency.
 - Integration with W&B for logging metrics and hyperparameter sweeps.
 - Automatic saving of the best model during training.
-- Comprehensive example in Jupyter Notebook for training, testing, and evaluation.
 - Visualization of test predictions in a grid format.
 
 ---
@@ -75,10 +73,7 @@ da6401-a2/
 - Jupyter Notebook
 - Other dependencies listed in `requirements.txt`
 
-To install the dependencies, run:
-```bash
-pip install -r requirements.txt
-```
+
 
 ---
 
@@ -90,14 +85,10 @@ pip install -r requirements.txt
    cd da6401-a2
    ```
 
-2. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
 
-3. Download the iNaturalist dataset and place it in the `inaturalist_12K` directory.
+2. Download the iNaturalist dataset and place it in the `inaturalist_12K` directory.
 
-4. Log in to Weights & Biases:
+3. Log in to Weights & Biases:
    ```bash
    wandb login
    ```
@@ -200,9 +191,9 @@ sweep_config = {
 ## Results
 
 ### Part A
-- **Best Validation Accuracy:** Achieved using hyperparameter optimization with W&B sweeps.
-- **Test Accuracy:** Evaluated using the `evaluate.py` script.
+- **Best Validation Accuracy:** ~43% Achieved using hyperparameter optimization with W&B sweeps.
+- **Test Accuracy:** ~43% Evaluated using the `evaluate.py` script.
 
 ### Part B
-- **Fine-tuned EfficientNetV2:** Achieved significant improvement in classification accuracy compared to the base CNN.
+- **Fine-tuned EfficientNetV2:** >75% Achieved significant improvement in classification accuracy compared to the base CNN.
 
