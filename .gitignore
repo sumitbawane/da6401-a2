@@ -14,3 +14,5 @@ __pycache__/
 
 wandb/
 wandb-debug.log
+
+*.pth 

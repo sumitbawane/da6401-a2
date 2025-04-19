@@ -5,25 +5,37 @@ import torchvision.datasets as datasets
 from torchvision import models
 from torch.utils.data import DataLoader, random_split
 import torch.optim as optim
-from PartA.train import run_epoch
-from PartA.data_utils import get_transforms 
-import wandb
 data_path = '../inaturalist_12K/train'
 # data_path_test = '../inaturalist_12K/val' 
 
-# Init W&B
-#wandb.init(project="finetune_inaturalist", name="efficientnetv2_finetune")
 
 # Device
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
+# Data transforms
+def get_transforms(is_train=True):
+    if is_train:
+        return transforms.Compose([
+            transforms.Resize((224, 224)),
+            transforms.RandomHorizontalFlip(),
+            transforms.ColorJitter(0.3, 0.3, 0.3, 0.1),
+            transforms.ToTensor(),
+            transforms.Normalize(mean=[0.485, 0.456, 0.406],
+                                 std=[0.229, 0.224, 0.225])
+        ])
+    else:
+        return transforms.Compose([
+            transforms.Resize((224, 224)),
+            transforms.ToTensor(),
+            transforms.Normalize(mean=[0.485, 0.456, 0.406],
+                                 std=[0.229, 0.224, 0.225])
+        ])
 
 # Load dataset
-dataset = datasets.ImageFolder(data_path, transform=get_transforms(data_augmentation=False,is_train=True))
+dataset = datasets.ImageFolder(data_path, transform=get_transforms(is_train=True))
 val_size = int(0.2 * len(dataset))
 train_size = len(dataset) - val_size
 train_ds, val_ds = random_split(dataset, [train_size, val_size], generator=torch.Generator().manual_seed(42))
-val_ds.dataset.transform = get_transforms(data_augmentation=False,is_train=False)
+val_ds.dataset.transform = get_transforms(is_train=False)
 
 train_loader = DataLoader(train_ds, batch_size=64, shuffle=True, num_workers=4)
 val_loader = DataLoader(val_ds, batch_size=64, shuffle=False, num_workers=4)
@@ -76,15 +88,17 @@ def run_epoch(model, dataloader, train=False):
     return running_loss / total, 100 * correct / total
 
 # Training loop
-best_val_acc = 0
-for epoch in range(10):
-    train_loss, train_acc = run_epoch(model, train_loader, train=True)
-    val_loss, val_acc = run_epoch(model, val_loader, train=False)
+if __name__ == "__main__":
+    # Training
+        best_val_acc = 0
+        for epoch in range(10):
+            train_loss, train_acc = run_epoch(model, train_loader, train=True)
+            val_loss, val_acc = run_epoch(model, val_loader, train=False)
 
-    if val_acc > best_val_acc:
-        best_val_acc = val_acc
-        torch.save(model.state_dict(), "best_efficientnetv2.pth")
-    
-    print(f"Epoch {epoch+1}: Train Acc={train_acc:.2f}%, Val Acc={val_acc:.2f}%")
+            if val_acc > best_val_acc:
+                best_val_acc = val_acc
+                torch.save(model.state_dict(), "best_efficientnetv2.pth")
 
-#wandb.run.summary["best_val_acc"] = best_val_acc
+            print(f"Epoch {epoch+1}: Train Acc={train_acc:.2f}%, Val Acc={val_acc:.2f}%")
+
+
