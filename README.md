@@ -27,7 +27,7 @@ This repository contains the implementation of an image classification framework
 
 This project is designed to classify images from the iNaturalist dataset. It leverages PyTorch for deep learning, supports mixed precision training, and integrates W&B for experiment tracking and hyperparameter optimization.
 
-- **Part A:** Implements a simple CNN architecture with configurable hyperparameters (e.g., kernel size, activation functions, dropout rates) and performs hyperparameter optimization using W&B sweeps.
+- **Part A:** Implements a custom CNN architecture with configurable hyperparameters (e.g., kernel size, activation functions, dropout rates) and performs hyperparameter optimization using W&B sweeps.
 - **Part B:** Fine-tunes a pre-trained EfficientNetV2 model to adapt it to the iNaturalist dataset.
 - **Jupyter Notebook:** Provides an interactive environment to train and test models, showcasing configurations, metrics logging, and visualization of results.
 
@@ -42,6 +42,7 @@ This project is designed to classify images from the iNaturalist dataset. It lev
 - Integration with W&B for logging metrics and hyperparameter sweeps.
 - Automatic saving of the best model during training.
 - Comprehensive example in Jupyter Notebook for training, testing, and evaluation.
+- Visualization of test predictions in a grid format.
 
 ---
 
@@ -50,11 +51,13 @@ This project is designed to classify images from the iNaturalist dataset. It lev
 ```
 da6401-a2/
 ├── PartA/
-│   ├── train.py          # Training script for custom CNN
-│   ├── main.py           # Entry point for W&B sweeps
-│   ├── data_utils.py     # Data loading and transformation utilities
-│   ├── model_utils.py    # Utility functions for training and evaluation
+│   ├── best_config.py    # Script to train the CNN using the best hyperparameters
 │   ├── cnn.py            # Definition of the custom CNN model
+│   ├── data_utils.py     # Data loading and transformation utilities
+│   ├── evaluate.py       # Evaluate the trained model and visualize results
+│   ├── main.py           # Entry point for W&B sweeps
+│   ├── model_utils.py    # Utility functions for training and evaluation
+│   ├── train.py          # Training script for custom CNN
 ├── PartB/
 │   ├── finetune.py       # Script for fine-tuning EfficientNetV2
 ├── da6401-a2.ipynb       # Jupyter Notebook demonstrating the workflow
@@ -112,6 +115,22 @@ pip install -r requirements.txt
    python PartA/main.py
    ```
 3. Monitor the training progress on the W&B dashboard.
+
+#### Training with Best Configuration
+1. The `PartA/best_config.py` script trains the model using the best hyperparameters obtained from the sweep.
+2. Run the script:
+   ```bash
+   python PartA/best_config.py
+   ```
+3. The model with the best validation accuracy will be saved as `best_model.pth`.
+
+#### Evaluating the Model
+1. Use the `PartA/evaluate.py` script to evaluate the trained model on the test set and visualize predictions.
+2. Run the script:
+   ```bash
+   python PartA/evaluate.py
+   ```
+3. This will save a 10×3 prediction grid as `prediction_grid.png` and print the test accuracy.
 
 ### Part B
 
@@ -182,6 +201,7 @@ sweep_config = {
 
 ### Part A
 - **Best Validation Accuracy:** Achieved using hyperparameter optimization with W&B sweeps.
+- **Test Accuracy:** Evaluated using the `evaluate.py` script.
 
 ### Part B
 - **Fine-tuned EfficientNetV2:** Achieved significant improvement in classification accuracy compared to the base CNN.
